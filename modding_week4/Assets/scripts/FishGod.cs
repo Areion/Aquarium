@@ -16,7 +16,7 @@ public class FishGod : MonoBehaviour {
         int currentFishCounter = 0;
 	    while ( currentFishCounter < fishCount ) 
 		{
-            randomNumber = Random.RandomRange (0,10);
+            randomNumber = Random.Range (0,10);
 			
 			if (randomNumber < 5) {
             	Vector3 fishPosition = Random.insideUnitSphere * 20f;
