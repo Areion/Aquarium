@@ -3,7 +3,9 @@ using System.Collections;
 
 public class Platformer : MonoBehaviour {
 	
-	public float playerSpeed = 2f);
+	public float playerSpeed = 10f;
+	public float sprintSpeed = 35f;
+	Vector3 objectJump = new Vector3 (0f, 15f, 0f);
 	
 	// Use this for initialization
 	void Start () {
@@ -13,28 +15,41 @@ public class Platformer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+		//ray and raycast for jumping use
+		Ray groundSensor = new Ray(transform.position, Vector3.down);
+		RaycastHit rayHit = new RaycastHit ();
+		
+		
+		
+		//jump script if player is on the ground
+		if (Input.GetKeyDown (KeyCode.Space) && Physics.Raycast (groundSensor, out rayHit, 2f)) {
+			rigidbody.AddForce (objectJump, ForceMode.Impulse);
+		}
+			
+		
+		
+		// movement for the object with a sprint under the forward movement
 		if ( Input.GetKeyDown ( KeyCode.LeftArrow)) {
-			rigidbody.AddRelativeForce ( Vector3.left * playerSpeed );
+			rigidbody.AddForce ( Vector3.left * playerSpeed, ForceMode.VelocityChange );
 		}
 		
 		if ( Input.GetKeyDown ( KeyCode.RightArrow)) {
-			rigidbody.AddForce ( Vector3,right * playerSpeed ) ;
+			rigidbody.AddForce ( Vector3.right * playerSpeed, ForceMode.VelocityChange ) ;
 		}
 		
 		if (Input.GetKeyDown ( KeyCode.UpArrow)) {
-			rigidbody.AddRelativeForce (Vector3.forward * playerSpeed );
+			rigidbody.AddForce (Vector3.forward * playerSpeed, ForceMode.VelocityChange );
+			
+			if (Input.GetKeyDown (KeyCode.LeftShift)) {
+				rigidbody.AddForce (Vector3.forward * sprintSpeed, ForceMode.VelocityChange );
+			}
 		}
 		
 		if (Input.GetKeyDown (KeyCode.DownArrow)) {
-			rigidbody.AddRelativeForce (Vector3.back * playerSpeed);
+			rigidbody.AddForce (Vector3.back * playerSpeed, ForceMode.VelocityChange);
 		
 		}
 		
-		if (Input.GetKeyDown
-		
-		if (Input.GetKeyDown ( KeyCode.Space)) {
-			rigidbody.
-			
 		
 // basic movement
 //	if ( player pushes left arrow )
